@@ -26,3 +26,6 @@
 *.exe
 *.out
 *.app
+
+#vs2010
+*.sdf
