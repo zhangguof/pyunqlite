@@ -46,8 +46,43 @@ wrap_unqlite_open(PyObject* self, PyObject *args)
 		Fatal(0,"Out of memory");
 		return Py_None;
 	}
-	return Py_BuildValue("l",pDb);
+	return Py_BuildValue("(l,l)",rc,pDb);
 }
+
+static PyObject*
+wrap_unqlite_close(PyObject *self, PyObject *args)
+{
+	int rc;
+	struct unqlite* pDb;
+	if (!PyArg_ParseTuple(args,"l",&pDb))
+		return NULL;
+	//printf("0x%08X",pDb);
+	rc = unqlite_close(pDb);
+
+	return Py_BuildValue("l",rc);
+}
+
+static PyObject*
+wrap_unqlite_config(PyObject *self, PyObject *args)
+{
+	int rc;
+	int nOp;
+	struct unqlite * pDb;
+	PyObject *tuple_args;
+	const char *arg1, *arg2;
+	puts("in unqlite config.\n");
+	if (!PyArg_ParseTuple(args,"llO",&pDb,&nOp,tuple_args))
+		return NULL;
+	printf("nOp:0x%08X\n",nOp);
+	
+	PyArg_Parse(tuple_args,"ss",&arg1,&arg2);
+	printf("arg1:%s\narg2:%s\n",&arg1,&arg2);
+	//rc = unqlite_config(nOp);
+
+	return Py_None;//Py_BuildValue("l",rc);
+}
+
+
 static PyObject*
 wrap_unqlite_compile(PyObject *self, PyObject *args)
 {
@@ -110,6 +145,8 @@ static PyMethodDef _unqlite_methods[] = {
 	{"foo", ex_foo, METH_VARARGS, "foo() doc string"},
 	{"unqlite_open",wrap_unqlite_open,METH_VARARGS,"unqlite open."},
 	{"unqlite_compile",wrap_unqlite_compile,METH_VARARGS,"unqlite compile."},
+	{"unqlite_close",wrap_unqlite_close,METH_VARARGS,"unqlite colse."},
+	{"unqlite_config",wrap_unqlite_config,METH_VARARGS,"unqlite config."},
 	{NULL, NULL}
 };
 

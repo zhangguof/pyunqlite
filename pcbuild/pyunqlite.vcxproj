@@ -46,8 +46,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>E:\Python32_27\include;../src/;$(IncludePath)</IncludePath>
-    <LibraryPath>E:\Python32_27\libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>d:\Python27\include;E:\Python32_27\include;../src/;$(IncludePath)</IncludePath>
+    <LibraryPath>d:\Python27\libs;E:\Python32_27\libs;$(LibraryPath)</LibraryPath>
     <TargetName>_unqlite</TargetName>
     <TargetExt>.pyd</TargetExt>
   </PropertyGroup>
